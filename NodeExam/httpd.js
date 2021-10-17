@@ -13,9 +13,10 @@ app.use(multer(
     .single('fileData'))
 
 //настроили обработку запоосов
-const bodyParser= require('body-parser')
-app.use(bodyParser.urlencoded({extended:true}))
-app.use(express.json)
+const bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({extended: false}))
+app.use(express.json())
+
 
 //подключили роутер
 const router= require('./routes')
@@ -23,13 +24,16 @@ app.use(router)
 
 
 //если нужно будет подключить кросспладформу
-const cors = require("cors");
+
 // let corpsOptions={
 //     origin:'http:localhost:3030',
-//     optionsSuccessStatus: 200}
-//потом разберусь
-app.use(cors());
-
+//     optionsSuccessStatus: 200,
+//
+// }
+const cors = require('cors')
+app.use(cors({
+    origin:'*'
+}))
 
 //подключили БД
 const mongoUrl= "mongodb+srv://palamar:z1qx2wc3ev4r@nodecluster.iqknn.mongodb.net/ExamDatabase?retryWrites=true&w=majority"
